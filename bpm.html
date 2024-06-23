@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chordify-like BPM Grid</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 90%;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(32, 1fr);
+            grid-gap: 5px;
+            position: relative;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20% 0; /* Para manter a proporção */
+            background-color: #ddd;
+            border: 1px solid #aaa;
+            font-size: 1.5vw;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background-color: #ffeb3b; /* Cor de destaque para tempos de 1 */
+        }
+
+        .active {
+            background-color: #4caf50 !important;
+            color: white;
+        }
+
+        .group1 .square {
+            background-color: #ffcccc;
+        }
+
+        .group2 .square {
+            background-color: #ccffcc;
+        }
+
+        .group1 .highlight {
+            background-color: #ff9999; /* Cor de destaque para tempos de 1 no grupo 1 */
+        }
+
+        .group2 .highlight {
+            background-color: #99ff99; /* Cor de destaque para tempos de 1 no grupo 2 */
+        }
+
+        .row::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px; /* Aumentado para 3px conforme solicitado */
+            background-color: black;
+            transform: translateX(-50%);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .controls label {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .controls input {
+            padding: 8px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="controls">
+            <label for="bpmInput">BPM:</label>
+            <input type="number" id="bpmInput" value="120" min="1" max="300">
+            <button onclick="tapTempo()">Tap Tempo</button>
+        </div>
+        <!-- Linha 1: 8 compassos de 4 quadrados -->
+        <div class="row group1" id="row1"></div>
+        <!-- Linha 2: 8 compassos de 4 quadrados -->
+        <div class="row group2" id="row2"></div>
+    </div>
+    <script>
+        let bpm = 120;
+        let interval = (60 / bpm) * 1000;
+        let tapTimes = [];
+        const maxTapTimes = 4;
+
+        // Número de quadrados por compasso e número de compassos
+        const squaresPerCompasso = 4;
+        const compassosPerRow = 8;
+        const rows = 2; // Número de linhas de compassos
+
+        // Cria os quadrados dentro dos grids
+        function createSquares() {
+            for (let r = 1; r <= rows; r++) {
+                const row = document.getElementById(`row${r}`);
+                for (let i = 1; i <= compassosPerRow; i++) {
+                    for (let j = 1; j <= squaresPerCompasso; j++) {
+                        const square = document.createElement('div');
+                        square.className = 'square';
+                        if (j === 1) {
+                            square.classList.add('highlight');
+                        }
+                        square.id = `square${r}-${i}-${j}`;
+                        square.innerText = j;
+                        row.appendChild(square);
+                    }
+                }
+            }
+        }
+
+        function setBPM() {
+            const bpmInput = document.getElementById('bpmInput').value;
+            if (bpmInput >= 1 && bpmInput <= 300) {
+                bpm = parseInt(bpmInput);
+                interval = (60 / bpm) * 1000;
+                clearInterval(timer);
+                timer = setInterval(updateSquare, interval);
+            } else {
+                alert('BPM deve estar entre 1 e 300.');
+            }
+        }
+
+        function tapTempo() {
+            const now = Date.now();
+            tapTimes.push(now);
+
+            if (tapTimes.length > maxTapTimes) {
+                tapTimes.shift(); // Remove o primeiro elemento se exceder o máximo
+            }
+
+            if (tapTimes.length > 1) {
+                const averageInterval = (tapTimes[tapTimes.length - 1] - tapTimes[0]) / (tapTimes.length - 1);
+                bpm = Math.round(60000 / averageInterval);
+                interval = (60 / bpm) * 1000;
+                clearInterval(timer);
+                timer = setInterval(updateSquare, interval);
+
+                // Atualiza o campo de input do BPM
+                document.getElementById('bpmInput').value = bpm;
+            }
+        }
+
+        let currentRow = 1;
+        let currentCompasso = 1;
+        let currentStep = 1;
+
+        function updateSquare() {
+            // Remove a classe "active" de todos os quadrados
+            for (let r = 1; r <= rows; r++) {
+                for (let i = 1; i <= compassosPerRow; i++) {
+                    for (let j = 1; j <= squaresPerCompasso; j++) {
+                        document.getElementById(`square${r}-${i}-${j}`).classList.remove('active');
+                    }
+                }
+            }
+
+            // Adiciona a classe "active" ao quadrado atual
+            document.getElementById(`square${currentRow}-${currentCompasso}-${currentStep}`).classList.add('active');
+
+            // Atualiza o quadrado atual
+            currentStep++;
+            if (currentStep > squaresPerCompasso) {
+                currentStep = 1;
+                currentCompasso++;
+                if (currentCompasso > compassosPerRow) {
+                    currentCompasso = 1;
+                    currentRow++;
+                    if (currentRow > rows) {
+                        currentRow = 1;
+                    }
+                }
+            }
+        }
+
+        // Inicializa os quadrados e começa a atualização
+        createSquares();
+        let timer = setInterval(updateSquare, interval);
+
+        // Event listener para mudanças no campo de input do BPM
+        document.getElementById('bpmInput').addEventListener('input', function() {
+            const bpmInput = parseInt(this.value);
+            if (bpmInput >= 1 && bpmInput <= 300) {
+                bpm = bpmInput;
+                interval = (60 / bpm) * 1000;
+                clearInterval(timer);
+                timer = setInterval(updateSquare, interval);
+            }
+        });
+    </script>
+</body>
+</html>
