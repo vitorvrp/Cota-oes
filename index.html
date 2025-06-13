@@ -2,65 +2,81 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Página com iframes</title>
 <style>
   .iframe-container {
-    width: calc(100% / 3);
-    height: 350px;
-    float: left;
-    position: relative;
-    overflow: hidden;
+    width: calc(100% / 3); /* Divide a largura da janela por 3 */
+    height: 350px; /* Altura padrão dos iframes */
+    float: left; /* Coloca os iframes lado a lado */
+    position: relative; /* Define a posição relativa para os iframes */
+    overflow: hidden; /* Esconde o conteúdo além do iframe */
   }
-  
   .iframe-container iframe {
-    position: absolute;
-    width: 100%;
-    height: 1000%;
-    top: -32%;
+    position: absolute; /* Define a posição absoluta para os iframes */
+    width: 100%; /* Ocupa toda a largura do iframe */
+    height: 1000%; /* Define a altura muito maior para o iframe */
+    top: -32%; /* Move o iframe para cima em 90% da sua altura */
+	
   }
-  
-  .zoomed-iframe {
-  transform: scale(0.7);
-  transform-origin: top left;
-  width: 1714px;  /* 1200 / 0.7 */
-  height: 857px;  /* 600 / 0.7 */
-}
+.zoomed-iframe {
+    transform: scale(1.0); /* Ajuste o valor para o nível de zoom desejado */
+    transform-origin: top left; /* Define o ponto de origem do zoom */
+    width: 820px; /* Ajuste a largura para compensar o zoom */
+    height: 310px; /* Ajuste a altura para compensar o zoom */
+  }
 </style>
 </head>
 <body>
 
 <div class="iframe-container">
+  <!-- Início do iframe 1 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175153&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 1 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 2 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175151&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 2 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 3 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175152&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 3 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 4 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8830&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 4 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 5 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=44336&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 5 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 6 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8849&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 6 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 7 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8827&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 7 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 7 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=39&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 7 -->
 </div>
 <div class="iframe-container">
+  <!-- Início do iframe 7 -->
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=23705&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <!-- Fim do iframe 7 -->
 </div>
-
 <iframe class="zoomed-iframe" src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=32,37,5,14,35,7,4,72&calType=day&timeZone=12&lang=12" 
-width="1200" height="600" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0">
-</iframe>
+width="1200" height="600" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>
+<!-- Repita este bloco conforme necessário para adicionar mais iframes -->
 
 </body>
 </html>
