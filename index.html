@@ -22,7 +22,7 @@
   .zoomed-wrapper {
     width: 820px;
     height: 310px;
-    overflow: hidden;  /* Apenas revela essa parte */
+    overflow: scroll;  /* Agora é scroll */
     border: 1px solid #ccc;
     position: relative;
     margin-bottom: 20px;
@@ -32,8 +32,8 @@
     transform: scale(1.0);
     transform-origin: top left;
 
-    position: absolute;
-    top: -100px;  /* "corta" o topo */
+    position: relative; 
+    top: -100px;  /* Apenas corta o topo */
     left: 0;
     width: 1200px;
     height: 600px;
@@ -42,44 +42,7 @@
 </head>
 <body>
 
-<div class="iframe-container">
-  <!-- Início do iframe 1 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175153&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 2 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175151&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 3 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175152&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 4 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8830&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 5 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=44336&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 6 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8849&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 7 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8827&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 8 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=39&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-<div class="iframe-container">
-  <!-- Início do iframe 9 -->
-  <iframe src="https://ssltvc.forexprostools.com/?pair_ID=23705&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-</div>
-
-
+<h2>Conteúdo cortado com possibilidade de rolagem</h2>
 
 <div class="zoomed-wrapper">
   <iframe class="zoomed-iframe" src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=32,37,5,14,35,7,4,72&calType=day&timeZone=12&lang=12" 
