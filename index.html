@@ -5,37 +5,44 @@
 <title>Página com iframes</title>
 <style>
   .iframe-container {
-    width: calc(100% / 3); /* Divide a largura da janela por 3 */
-    height: 350px; /* Altura padrão dos iframes */
-    float: left; /* Coloca os iframes lado a lado */
-    position: relative; /* Define a posição relativa para os iframes */
-    overflow: hidden; /* Esconde o conteúdo além do iframe */
+    width: calc(100% / 3);
+    height: 350px;
+    float: left;
+    position: relative;
+    overflow: hidden;
   }
   .iframe-container iframe {
-    position: absolute; /* Define a posição absoluta para os iframes */
-    width: 100%; /* Ocupa toda a largura do iframe */
-    height: 1000%; /* Define a altura muito maior para o iframe */
-    top: -32%; /* Move o iframe para cima em 32% da sua altura */
+    position: absolute;
+    width: 100%;
+    height: 1000%;
+    top: -32%;
   }
 
-  /* Container do iframe maior com zoom e scroll interno */
+  /* Container do iframe maior com zoom e corte do cabeçalho */
   .zoomed-wrapper {
     width: 820px;
     height: 310px;
     border: 1px solid #ccc;
     position: relative;
-    clear: both; /* Faz o container aparecer depois dos iframes flutuantes */
+    clear: both;
     margin-bottom: 20px;
-    overflow: auto; /* Permite rolagem dentro do container */
+    
+    overflow-y: scroll; /* só scroll vertical */
+    overflow-x: hidden; /* impede scroll horizontal */
+    box-sizing: content-box;
   }
 
-  /* Estilo do iframe com zoom dentro do container */
+  /* iframe com deslocamento para esconder cabeçalho */
   .zoomed-wrapper iframe.zoomed-iframe {
-    transform: scale(1.0); /* Ajuste do zoom, 1.0 = 100% */
-    transform-origin: top left; /* Origem do zoom no canto superior esquerdo */
+    position: relative;
+    top: -90px; /* Ajuste aqui a altura do cabeçalho que quer esconder */
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: 700px; /* altura maior para compensar o deslocamento */
     border: none;
+    
+    transform: scale(1);
+    transform-origin: top left;
   }
 </style>
 </head>
@@ -69,7 +76,6 @@
   <iframe src="https://ssltvc.forexprostools.com/?pair_ID=23705&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
 </div>
 
-<!-- Container do iframe maior com zoom e scroll -->
 <div class="zoomed-wrapper">
   <iframe
     class="zoomed-iframe"
