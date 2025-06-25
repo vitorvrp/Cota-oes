@@ -1,65 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Página com iframes</title>
-<style>
-  .iframe-container {
-    width: calc(100% / 3);
-    height: 350px;
-    float: left;
-    position: relative;
-    overflow: hidden;
-  }
-  .iframe-container iframe {
-    position: absolute;
-    width: 100%;
-    height: 1000%;
-    top: -32%;
-  }
- 
-</style>
+  <meta charset="UTF-8" />
+  <title>Iframes com altura adaptativa ao zoom e corte topo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      font-family: sans-serif;
+    }
+
+    .grid-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .iframe-container {
+      width: 33.3333%;
+      padding: 10px;
+    }
+
+    .iframe-inner {
+      width: 100%;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      /* altura definida pelo JS */
+    }
+
+    .iframe-inner iframe {
+      position: absolute;
+      top: -80px; /* corte topo */
+      left: 0;
+      width: 100%;
+      height: calc(100% + 80px);
+      border: none;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Outros iframes que você quer exibir exatamente como estavam -->
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175153&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
+  <div class="grid-container">
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175153&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175151&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175152&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=8830&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=44336&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=8849&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=8827&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=39&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
+    <div class="iframe-container"><div class="iframe-inner"><iframe src="https://ssltvc.forexprostools.com/?pair_ID=23705&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9&height=1000&width=1000"></iframe></div></div>
   </div>
 
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175151&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
+  <script>
+    function ajustarAltura() {
+      const items = document.querySelectorAll('.iframe-inner');
+      items.forEach(item => {
+        const largura = item.offsetWidth;
+        const multiplicador = 1.8;
+        const alturaBase = largura * 9 / 16 * multiplicador;
+        item.style.height = alturaBase + 'px';
+      });
+    }
 
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=1175152&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
+    window.addEventListener('load', ajustarAltura);
+    window.addEventListener('resize', ajustarAltura);
+  </script>
 
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8830&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
-
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=44336&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
-
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8849&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
-
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=8827&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
-
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=39&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
-
-  <div class="iframe-container">
-    <iframe src="https://ssltvc.forexprostools.com/?pair_ID=23705&height=480&width=650&interval=900&plotStyle=candle&domain_ID=30&lang_ID=12&timezone_ID=9" frameborder="0"></iframe>
-  </div>
-
-
-  
 </body>
 </html>
